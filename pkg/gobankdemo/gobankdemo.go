@@ -40,7 +40,7 @@ func Vsam(input []string) (result string) {
 		}()
 		out, err := cmd.CombinedOutput()
 		if err != nil {
-			log.Fatal(err)
+			//log.Fatal(err)
 		}
 		_ = out
 		//fmt.Printf("%s\n", out)
@@ -83,8 +83,8 @@ func Vsam(input []string) (result string) {
 
 	//Run python MF_Provision_Region.py vsam
 	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py vsam\n")
-
-	cmd = exec.Command("python", "BankDemo\\scripts\\MF_Provision_Region.py", "vsam")
+	cmd.Dir = "BankDemo\\scripts\\"
+	cmd = exec.Command("python", "MF_Provision_Region.py", "vsam")
 	if err := cmd.Run(); err != nil {
 		return err.Error()
 	}
