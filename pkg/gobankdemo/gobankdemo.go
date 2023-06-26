@@ -84,7 +84,7 @@ func Vsam(input []string) (result string) {
 	//Run python MF_Provision_Region.py vsam
 	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py vsam\n")
 
-	cmd = exec.Command("python", "MF_Provision_Region.py", "vsam")
+	cmd = exec.Command("python", "BankDemo\\scripts\\MF_Provision_Region.py", "vsam")
 	if err := cmd.Run(); err != nil {
 		return err.Error()
 	}
