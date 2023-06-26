@@ -5,6 +5,7 @@ import (
 	"log"
 	"os/exec"
 	"runtime"
+	"syscall"
 )
 
 func Vsam(input []string) (result string) {
@@ -83,7 +84,7 @@ func Vsam(input []string) (result string) {
 
 	//Run python MF_Provision_Region.py vsam
 	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py vsam\n")
-	cmd.Dir = "BankDemo\\scripts\\"
+	syscall.Chdir("BankDemo\\scripts\\")
 	cmd = exec.Command("python", "MF_Provision_Region.py", "vsam")
 	if err := cmd.Run(); err != nil {
 		return err.Error()
