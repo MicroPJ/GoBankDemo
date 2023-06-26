@@ -68,7 +68,7 @@ func Vsam(input []string) (result string) {
 		}
 		go func() {
 			defer stdin.Close()
-			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '9023', '9001' | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
+			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '9023', '9023' | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
 			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '8001', '5001 | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
 			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\options\\vsam.json -Raw) -replace '\"is64bit\": false,','\"is64bit\": true,' | Set-Content -Path BankDemo\\scripts\\options\\vsam.json")
 		}()
@@ -91,5 +91,5 @@ func Vsam(input []string) (result string) {
 	}
 	fmt.Printf("*---[VSAM] End python MF_Provision_Region.py vsam\n")
 	fmt.Printf("*---[VSAM] Completed\n")
-	return "ESCWA: http://localhost:10086\n3270: localhost:9001\n"
+	return "ESCWA: http://localhost:10086\n3270: localhost:9023\n"
 }
