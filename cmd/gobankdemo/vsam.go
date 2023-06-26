@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(oneCmd)
+	rootCmd.AddCommand(vsamCmd)
 	rootCmd.AddCommand(versionCmd)
 }
 
@@ -21,14 +21,14 @@ var versionCmd = &cobra.Command{
 	},
 }
 
-var oneCmd = &cobra.Command{
-	Use:     "one",
-	Aliases: []string{"o"},
-	Short:   "Option one",
+var vsamCmd = &cobra.Command{
+	Use:     "vsam",
+	Aliases: []string{"v"},
+	Short:   "BankDemo VSAM",
 	Args:    cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 
-		res := gobankdemo.One(args)
+		res := gobankdemo.Vsam(args)
 		fmt.Printf(res)
 	},
 }

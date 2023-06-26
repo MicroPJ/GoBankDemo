@@ -2,26 +2,37 @@ package gobankdemo
 
 import (
 	"fmt"
+	"os/exec"
 	"runtime"
 )
 
-func One(input []string) (result string) {
+func Vsam(input []string) (result string) {
+
+	var cmd *exec.Cmd
 
 	fmt.Printf("*---[One] Running\n")
 	switch runtime.GOOS {
 	case "windows":
-		fmt.Printf("*---[One] Windows identified\n")
+		fmt.Printf("*---[VSAM] Windows identified\n")
 
 	default: //Mac & Linux
-		fmt.Printf("*---[One] Linux identified\n")
+		fmt.Printf("*---[VSAM] Linux identified\n")
 	}
 
 	if len(input) == 0 {
-		fmt.Printf("*---[One] No Parameter provided\n")
+		fmt.Printf("*---[VSAM] No Parameter provided\n")
 	} else {
-		fmt.Printf("*---[One] Parameter provided: %v\n", input)
+		fmt.Printf("*---[VSAM] Parameter provided: %v\n", input)
 	}
 
-	fmt.Printf("*---[One] Completed\n")
+	fmt.Printf("*---[VSAM] Clone BankDemo GitHub.com Repo\n")
+	var repo = "https://github.com/MicroFocus/BankDemo.git"
+	cmd = exec.Command("git", "clone", repo, "--progress")
+	if err := cmd.Run(); err != nil {
+		return err.Error()
+	}
+	fmt.Printf("*---[VSAM] Done\n")
+
+	fmt.Printf("*---[VSAM] Completed\n")
 	return "Done"
 }
