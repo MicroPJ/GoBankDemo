@@ -17,7 +17,7 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of gobankdemo",
 	Long:  `All software has versions. This is gobankdemo's`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("gobankdemo Template v0.1\n")
+		fmt.Println("GoBankDemo v0.1\n")
 	},
 }
 

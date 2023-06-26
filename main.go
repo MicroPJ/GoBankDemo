@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	myFigure := figure.NewFigure("gobankdemo", "", true)
+	myFigure := figure.NewFigure("GoBankDemo", "", true)
 	myFigure.Print()
 	fmt.Printf("\n\n")
 	gobankdemo.Execute()
