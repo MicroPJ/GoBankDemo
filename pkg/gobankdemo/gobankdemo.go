@@ -146,16 +146,17 @@ func Vsam(input []string, verbose bool) (result string) {
 	//if err := cmd.Run(); err != nil {
 	//return err.Error()
 	//}
-	cmd = exec.Command("net start mfhacloud", "", "")
-	if verbose {
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-	}
-	if err := cmd.Run(); err != nil {
-		return err.Error()
-	}
-	fmt.Printf("*---[VSAM] End HASession Server\n")
+	//cmd = exec.Command("net start mfhacloud", "", "")
+	//if verbose {
+	//	cmd.Stdout = os.Stdout
+	//	cmd.Stderr = os.Stderr
+	//}
+	//if err := cmd.Run(); err != nil {
+	//	return err.Error()
+	//}
+	//fmt.Printf("*---[VSAM] End HASession Server\n")
 
-	fmt.Printf("*---[VSAM] Completed\n")
-	return "ESCWA: http://localhost:10086\n3270: localhost:9023\nHA: localhost:7443\n"
+	//fmt.Printf("*---[VSAM] Completed\n")
+	//return "ESCWA: http://localhost:10086\n3270: localhost:9023\nHA: localhost:7443\n"
+	return "ESCWA: http://localhost:10086\n3270: localhost:9023\n"
 }
