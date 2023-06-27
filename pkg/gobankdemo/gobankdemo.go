@@ -122,6 +122,40 @@ func Vsam(input []string, verbose bool) (result string) {
 		return err.Error()
 	}
 	fmt.Printf("*---[VSAM] End python MF_Provision_Region.py vsam\n")
+
+	//Run HASESSION Server
+	fmt.Printf("*---[VSAM] Start setup environment for HASession Server\n")
+	syscall.Chdir("C:\\Program Files (x86)\\Micro Focus\\Enterprise Developer")
+	cmd = exec.Command("setupenv.bat", "", "")
+	if verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+	if err := cmd.Run(); err != nil {
+		return err.Error()
+	}
+	fmt.Printf("*---[VSAM] End setup environment for HASession Server\n")
+
+	fmt.Printf("*---[VSAM] Start HASession Server\n")
+	syscall.Chdir("C:\\Program Files (x86)\\Micro Focus\\Enterprise Developer")
+	cmd = exec.Command("hacloudserviceinstall 64", "", "")
+	if verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+	if err := cmd.Run(); err != nil {
+		return err.Error()
+	}
+	cmd = exec.Command("net start mfhacloud", "", "")
+	if verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+	if err := cmd.Run(); err != nil {
+		return err.Error()
+	}
+	fmt.Printf("*---[VSAM] End HASession Server\n")
+
 	fmt.Printf("*---[VSAM] Completed\n")
 	return "ESCWA: http://localhost:10086\n3270: localhost:9023\n"
 }
