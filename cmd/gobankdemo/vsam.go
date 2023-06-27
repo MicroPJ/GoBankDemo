@@ -7,9 +7,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var verbose bool
+
 func init() {
 	rootCmd.AddCommand(vsamCmd)
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.PersistentFlags().BoolVar(&verbose, "verbose", false, "verbose output")
 }
 
 var versionCmd = &cobra.Command{
@@ -27,8 +30,9 @@ var vsamCmd = &cobra.Command{
 	Short:   "BankDemo VSAM",
 	Args:    cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
+		verbose, _ := cmd.Flags().GetBool("verbose")
 
-		res := gobankdemo.Vsam(args)
+		res := gobankdemo.Vsam(args, verbose)
 		fmt.Printf(res)
 	},
 }

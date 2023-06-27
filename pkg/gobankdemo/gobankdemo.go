@@ -3,12 +3,13 @@ package gobankdemo
 import (
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"runtime"
 	"syscall"
 )
 
-func Vsam(input []string) (result string) {
+func Vsam(input []string, verbose bool) (result string) {
 
 	var cmd *exec.Cmd
 
@@ -27,7 +28,14 @@ func Vsam(input []string) (result string) {
 		fmt.Printf("*---[VSAM] Parameter provided: %v\n", input)
 	}
 
+	if verbose {
+		fmt.Printf("*---[VSAM] Verbose true\n")
+	} else {
+		fmt.Printf("*---[VSAM] Verbose false\n")
+	}
+
 	//Delete BankDemo Folder
+	fmt.Printf("*---[VSAM] Checking for left over BankDemo clone folder\n")
 	switch runtime.GOOS {
 	case "windows":
 		cmd = exec.Command("powershell", "-nologo", "-noprofile")
@@ -39,23 +47,43 @@ func Vsam(input []string) (result string) {
 			defer stdin.Close()
 			fmt.Fprintln(stdin, "Remove-Item 'BankDemo' -Force -Recurse")
 		}()
-		out, err := cmd.CombinedOutput()
-		if err != nil {
-			//log.Fatal(err)
+		out, _ := cmd.CombinedOutput()
+
+		//_ = out
+		if verbose {
+			fmt.Printf("*---[VSAM] %s\n", out)
 		}
-		_ = out
+		if err != nil {
+			fmt.Printf("*---[VSAM] BankDemo clone folder not found\n")
+		} else {
+			fmt.Printf("*---[VSAM] BankDemo clone folder found & deleted\n")
+		}
 		//fmt.Printf("%s\n", out)
 	default: //Mac & Linux
 		fmt.Printf("*---[VSAM] Delete BankDemo Folder in Linux not yet implemented\n")
 	}
+	fmt.Printf("*---[VSAM] End Checking for left over BankDemo clone folder\n")
 
 	//Clone BankDemo Repo
 	fmt.Printf("*---[VSAM] Start Clone BankDemo GitHub.com Repo\n")
+
 	var repo = "https://github.com/MicroFocus/BankDemo.git"
 	cmd = exec.Command("git", "clone", repo, "--progress")
-	if err := cmd.Run(); err != nil {
+	if verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+
+	if err := cmd.Start(); err != nil {
+		log.Printf("Error executing command: %s......\n", err.Error())
 		return err.Error()
 	}
+
+	if err := cmd.Wait(); err != nil {
+		log.Printf("Error waiting for command execution: %s......\n", err.Error())
+		return err.Error()
+	}
+
 	fmt.Printf("*---[VSAM] End Clone BankDemo GitHub.com Repo\n")
 
 	//Fix Github typos
@@ -86,6 +114,10 @@ func Vsam(input []string) (result string) {
 	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py vsam\n")
 	syscall.Chdir("BankDemo\\scripts\\")
 	cmd = exec.Command("python", "MF_Provision_Region.py", "vsam")
+	if verbose {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
 	if err := cmd.Run(); err != nil {
 		return err.Error()
 	}
