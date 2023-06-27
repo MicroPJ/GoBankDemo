@@ -7,6 +7,8 @@ import (
 	"os/exec"
 	"runtime"
 	"syscall"
+
+	"github.com/common-nighthawk/go-figure"
 )
 
 func Vsam(input []string, verbose bool) (result string) {
@@ -158,5 +160,9 @@ func Vsam(input []string, verbose bool) (result string) {
 
 	//fmt.Printf("*---[VSAM] Completed\n")
 	//return "ESCWA: http://localhost:10086\n3270: localhost:9023\nHA: localhost:7443\n"
-	return "ESCWA: http://localhost:10086\n3270: localhost:9023\n"
+	myFigure := figure.NewFigure("Finshed", "", true)
+	myFigure.Print()
+
+	return "\nESCWA: http://localhost:10086\n3270: localhost:9023\n"
+
 }
