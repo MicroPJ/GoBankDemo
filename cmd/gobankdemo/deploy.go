@@ -27,7 +27,7 @@ var versionCmd = &cobra.Command{
 var deployCmd = &cobra.Command{
 	Use:     "deploy",
 	Aliases: []string{"d"},
-	Short:   "BankDemo deploy",
+	Short:   "Run 'gobankdemo deploy [vsam, vsam_postgres, sql_postgres]' to deploy BankDemo",
 	Args:    cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		verbose, _ := cmd.Flags().GetBool("verbose")
