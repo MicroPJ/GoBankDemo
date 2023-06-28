@@ -10,7 +10,7 @@ import (
 var verbose bool
 
 func init() {
-	rootCmd.AddCommand(vsamCmd)
+	rootCmd.AddCommand(deployCmd)
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.PersistentFlags().BoolVar(&verbose, "verbose", false, "verbose output")
 }
@@ -24,15 +24,15 @@ var versionCmd = &cobra.Command{
 	},
 }
 
-var vsamCmd = &cobra.Command{
-	Use:     "vsam",
-	Aliases: []string{"v"},
-	Short:   "BankDemo VSAM",
+var deployCmd = &cobra.Command{
+	Use:     "deploy",
+	Aliases: []string{"d"},
+	Short:   "BankDemo deploy",
 	Args:    cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		verbose, _ := cmd.Flags().GetBool("verbose")
 
-		res := gobankdemo.Vsam(args, verbose)
+		res := gobankdemo.Deploy(args, verbose)
 		fmt.Printf(res)
 	},
 }
