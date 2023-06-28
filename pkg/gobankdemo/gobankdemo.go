@@ -40,13 +40,13 @@ func Deploy(input []string, verbose bool) (result string) {
 	}
 
 	if slices.Contains(valid_options, option) {
-		fmt.Printf("*---[%v] Valid Option\n", option)
+		fmt.Printf("*---[%v] Valid Option selected: %v\n", option, option)
 	} else {
 		err1 := errors.New("[ERROR]: INVALID OPTION. Valid options are ['vsam', 'vsam_postgres', 'sql_postgres']")
 		log.Fatal(err1)
 	}
 
-	fmt.Printf("*---[%v] Running\n", option)
+	//fmt.Printf("*---[%v] Running\n", option)
 	switch runtime.GOOS {
 	case "windows":
 		fmt.Printf("*---[%v] Windows identified\n", option)
