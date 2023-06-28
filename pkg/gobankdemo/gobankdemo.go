@@ -55,11 +55,11 @@ func Deploy(input []string, verbose bool) (result string) {
 		fmt.Printf("*---[%v] Linux identified\n", option)
 	}
 
-	if len(input) == 0 {
-		fmt.Printf("*---[%v] No Option provided\n", option)
-	} else {
-		fmt.Printf("*---[%v] Option provided: %v\n", option, option)
-	}
+	//if len(option) == 0 {
+	//	fmt.Printf("*---[%v] No Option provided\n", option)
+	//} else {
+	//	fmt.Printf("*---[%v] Option provided: %v\n", option, option)
+	//}
 
 	if verbose {
 		fmt.Printf("*---[%v] Verbose true\n", option)
