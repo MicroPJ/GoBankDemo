@@ -113,9 +113,13 @@ func Vsam(input []string, verbose bool) (result string) {
 	}
 
 	//Run python MF_Provision_Region.py vsam
-	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py vsam\n")
+
+	fmt.Printf("*---[VSAM] Start python MF_Provision_Region.py %v\n", input)
 	syscall.Chdir("BankDemo\\scripts\\")
-	cmd = exec.Command("python", "MF_Provision_Region.py", "vsam")
+	var option string
+	option = input[0]
+	cmd = exec.Command("python", "MF_Provision_Region.py", option)
+	syscall.Chdir("BankDemo\\scripts\\")
 	if verbose {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
