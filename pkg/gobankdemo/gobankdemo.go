@@ -131,7 +131,7 @@ func Deploy(input []string, verbose bool) (result string) {
 
 	//Run python MF_Provision_Region.py vsam
 
-	fmt.Printf("*---[%v] Start python MF_Provision_Region.py %v\n", option)
+	fmt.Printf("*---[%v] Starting Deploy\n", option)
 	syscall.Chdir("BankDemo\\scripts\\")
 	//option := input[0]
 	cmd = exec.Command("python", "MF_Provision_Region.py %v", option)
@@ -143,7 +143,7 @@ func Deploy(input []string, verbose bool) (result string) {
 	if err := cmd.Run(); err != nil {
 		return err.Error()
 	}
-	fmt.Printf("*---[%v] End python MF_Provision_Region.py vsam\n", option)
+	fmt.Printf("*---[%v] End Deploy\n", option)
 
 	//Run HASESSION Server
 	//fmt.Printf("*---[VSAM] Start setup environment for HASession Server\n")
