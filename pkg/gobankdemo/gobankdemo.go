@@ -70,7 +70,7 @@ func Vsam(input []string, verbose bool) (result string) {
 	fmt.Printf("*---[VSAM] Start Clone BankDemo GitHub.com Repo\n")
 
 	var repo = "https://github.com/MicroFocus/BankDemo.git"
-	cmd = exec.Command("git", "clone", repo, "--progress --branch main")
+	cmd = exec.Command("git", "clone", repo, "--progress", "--branch", "main")
 	if verbose {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
