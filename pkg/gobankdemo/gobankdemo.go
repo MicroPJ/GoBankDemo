@@ -19,42 +19,42 @@ func Deploy(input []string, verbose bool) (result string) {
 	var option string
 	if len(input) < 1 {
 		option = "vsam"
-		fmt.Printf("*---[%v] No Option provided, using default VSAM\n", input)
+		fmt.Printf("*---[%v] No Option provided, using default VSAM\n", option)
 	} else {
 		option = input[0]
 	}
 
 	valid_options := []string{"vsam", "vsam_postgres", "sql_postgres"}
 	if slices.Contains(valid_options, option) {
-		fmt.Printf("*---[%v] Valid Option\n", input)
+		fmt.Printf("*---[%v] Valid Option\n", option)
 	} else {
 		err1 := errors.New("[ERROR]: INVALID OPTION. Valid options are ['vsam', 'vsam_postgres', 'sql_postgres']")
 		log.Fatal(err1)
 	}
 
-	fmt.Printf("*---[%v] Running\n", input)
+	fmt.Printf("*---[%v] Running\n", option)
 	switch runtime.GOOS {
 	case "windows":
-		fmt.Printf("*---[%v] Windows identified\n", input)
+		fmt.Printf("*---[%v] Windows identified\n", option)
 
 	default: //Mac & Linux
-		fmt.Printf("*---[%v] Linux identified\n", input)
+		fmt.Printf("*---[%v] Linux identified\n", option)
 	}
 
 	if len(input) == 0 {
-		fmt.Printf("*---[%v] No Parameter provided\n", input)
+		fmt.Printf("*---[%v] No Parameter provided\n", option)
 	} else {
-		fmt.Printf("*---[%v] Parameter provided: %v\n", input)
+		fmt.Printf("*---[%v] Parameter provided: %v\n", option)
 	}
 
 	if verbose {
-		fmt.Printf("*---[%v] Verbose true\n", input)
+		fmt.Printf("*---[%v] Verbose true\n", option)
 	} else {
-		fmt.Printf("*---[%v] Verbose false\n", input)
+		fmt.Printf("*---[%v] Verbose false\n", option)
 	}
 
 	//Delete BankDemo Folder
-	fmt.Printf("*---[%v] Checking for left over BankDemo clone folder\n", input)
+	fmt.Printf("*---[%v] Checking for left over BankDemo clone folder\n", option)
 	switch runtime.GOOS {
 	case "windows":
 		cmd = exec.Command("powershell", "-nologo", "-noprofile")
@@ -70,21 +70,21 @@ func Deploy(input []string, verbose bool) (result string) {
 
 		//_ = out
 		if verbose {
-			fmt.Printf("*---[%v] %s\n", input, out)
+			fmt.Printf("*---[%v] %s\n", option, out)
 		}
 		if err != nil {
-			fmt.Printf("*---[%v] BankDemo clone folder not found\n", input)
+			fmt.Printf("*---[%v] BankDemo clone folder not found\n", option)
 		} else {
-			fmt.Printf("*---[%v] BankDemo clone folder found & deleted\n", input)
+			fmt.Printf("*---[%v] BankDemo clone folder found & deleted\n", option)
 		}
 		//fmt.Printf("%s\n", out)
 	default: //Mac & Linux
-		fmt.Printf("*---[%v] Delete BankDemo Folder in Linux not yet implemented\n", input)
+		fmt.Printf("*---[%v] Delete BankDemo Folder in Linux not yet implemented\n", option)
 	}
-	fmt.Printf("*---[%v] End Checking for left over BankDemo clone folder\n", input)
+	fmt.Printf("*---[%v] End Checking for left over BankDemo clone folder\n", option)
 
 	//Clone BankDemo Repo
-	fmt.Printf("*---[%v] Start Clone BankDemo GitHub.com Repo\n", input)
+	fmt.Printf("*---[%v] Start Clone BankDemo GitHub.com Repo\n", option)
 
 	var repo = "https://github.com/MicroFocus/BankDemo.git"
 	cmd = exec.Command("git", "clone", repo, "--progress", "--branch", "main")
@@ -103,7 +103,7 @@ func Deploy(input []string, verbose bool) (result string) {
 		return err.Error()
 	}
 
-	fmt.Printf("*---[%v] End Clone BankDemo GitHub.com Repo\n", input)
+	fmt.Printf("*---[%v] End Clone BankDemo GitHub.com Repo\n", option)
 
 	//Fix Github typos
 	switch runtime.GOOS {
@@ -126,12 +126,12 @@ func Deploy(input []string, verbose bool) (result string) {
 		_ = out
 		//fmt.Printf("%s\n", out)
 	default: //Mac & Linux
-		fmt.Printf("*---[%v] Fix Github typos in Linux not yet implemented\n", input)
+		fmt.Printf("*---[%v] Fix Github typos in Linux not yet implemented\n", option)
 	}
 
 	//Run python MF_Provision_Region.py vsam
 
-	fmt.Printf("*---[%v] Start python MF_Provision_Region.py %v\n", input)
+	fmt.Printf("*---[%v] Start python MF_Provision_Region.py %v\n", option)
 	syscall.Chdir("BankDemo\\scripts\\")
 	//option := input[0]
 	cmd = exec.Command("python", "MF_Provision_Region.py", option)
@@ -143,7 +143,7 @@ func Deploy(input []string, verbose bool) (result string) {
 	if err := cmd.Run(); err != nil {
 		return err.Error()
 	}
-	fmt.Printf("*---[%v] End python MF_Provision_Region.py vsam\n", input)
+	fmt.Printf("*---[%v] End python MF_Provision_Region.py vsam\n", option)
 
 	//Run HASESSION Server
 	//fmt.Printf("*---[VSAM] Start setup environment for HASession Server\n")
