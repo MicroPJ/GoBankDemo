@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"strings"
 	"syscall"
 
 	"github.com/common-nighthawk/go-figure"
@@ -17,10 +16,12 @@ import (
 func Deploy(input []string, verbose bool) (result string) {
 
 	var cmd *exec.Cmd
-	option := strings.TrimSpace(strings.ToLower(input[0]))
-	if len(option) == 0 || option == "" {
+	var option string
+	if len(input) < 1 {
 		option = "vsam"
 		fmt.Printf("*---[%v] No Option provided, using default VSAM\n", input)
+	} else {
+		option = input[0]
 	}
 
 	valid_options := []string{"vsam", "vsam_postgres", "sql_postgres"}
