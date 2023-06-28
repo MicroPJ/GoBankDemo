@@ -10,6 +10,6 @@ import (
 func main() {
 	myFigure := figure.NewFigure("GoBankDemo", "", true)
 	myFigure.Print()
-	fmt.Printf("\nPart of the Enterprise CSP\n\n")
+	fmt.Printf("\n Part of the Enterprise CSP\n\n")
 	gobankdemo.Execute()
 }

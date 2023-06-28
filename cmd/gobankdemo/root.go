@@ -10,7 +10,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "gobankdemo",
 	Short: "gobankdemo - Golang utility to deploy BankDemo",
-	Long:  `Run "gobankdemo -h" for help on any command`,
+	Long:  `Run "gobankdemo -h" for help on any command\nRun "gobankdemo deploy ['vsam', 'vsam_postgres', 'sql_postgres']" to deploy BankDemo`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		//fmt.Printf("Inside rootCmd PreRun with args: %v\n", args)
 	},

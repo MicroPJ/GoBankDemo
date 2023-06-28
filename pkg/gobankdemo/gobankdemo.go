@@ -42,9 +42,9 @@ func Deploy(input []string, verbose bool) (result string) {
 	}
 
 	if len(input) == 0 {
-		fmt.Printf("*---[%v] No Parameter provided\n", option)
+		fmt.Printf("*---[%v] No Option provided\n", option)
 	} else {
-		fmt.Printf("*---[%v] Parameter provided: %v\n", option, option)
+		fmt.Printf("*---[%v] Option provided: %v\n", option, option)
 	}
 
 	if verbose {
