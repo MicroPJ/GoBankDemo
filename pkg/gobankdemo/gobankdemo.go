@@ -134,7 +134,7 @@ func Deploy(input []string, verbose bool) (result string) {
 	fmt.Printf("*---[%v] Starting Deploy\n", option)
 	syscall.Chdir("BankDemo\\scripts\\")
 	//option := input[0]
-	cmd = exec.Command("python", "MF_Provision_Region.py %v", option)
+	cmd = exec.Command("python", "MF_Provision_Region.py", option)
 	syscall.Chdir("BankDemo\\scripts\\")
 	if verbose {
 		cmd.Stdout = os.Stdout
