@@ -17,14 +17,28 @@ func Deploy(input []string, verbose bool) (result string) {
 
 	var cmd *exec.Cmd
 	var option string
+	valid_options := []string{"vsam", "vsam_postgres", "sql_postgres"}
 	if len(input) < 1 {
-		option = "vsam"
-		fmt.Printf("*---[%v] No Option provided, using default VSAM\n", option)
+		//option = "vsam"
+		//fmt.Printf("*---[%v] No Option provided, using default VSAM\n", option)
+
+		var input_option string
+		istrue := true
+		for ok := true; ok; ok = istrue {
+			fmt.Printf(" Please enter a valid option [vsam, vsam_postgres, sql_postgres]: ")
+			fmt.Scanln(&input_option)
+			if slices.Contains(valid_options, input_option) {
+				istrue = true
+				option = input_option
+				break
+			} else {
+				fmt.Printf(" Invalid option: %v\n", input_option)
+			}
+		}
 	} else {
 		option = input[0]
 	}
 
-	valid_options := []string{"vsam", "vsam_postgres", "sql_postgres"}
 	if slices.Contains(valid_options, option) {
 		fmt.Printf("*---[%v] Valid Option\n", option)
 	} else {
