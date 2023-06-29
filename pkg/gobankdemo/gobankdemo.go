@@ -167,6 +167,7 @@ func Deploy(input []string, verbose bool) (result string) {
 
 	//fmt.Printf("*---[VSAM] Start HASession Server\n")
 	//syscall.Chdir("C:\\Program Files (x86)\\Micro Focus\\Enterprise Developer")
+	//startsessionserver needs to be run
 	//cmd = exec.Command("hacloudserviceinstall 64", "", "")
 	//if verbose {
 	//	cmd.Stdout = os.Stdout
