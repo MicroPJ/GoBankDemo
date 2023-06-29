@@ -55,12 +55,6 @@ func Deploy(input []string, verbose bool) (result string) {
 		fmt.Printf("*---[%v] Linux identified\n", option)
 	}
 
-	//if len(option) == 0 {
-	//	fmt.Printf("*---[%v] No Option provided\n", option)
-	//} else {
-	//	fmt.Printf("*---[%v] Option provided: %v\n", option, option)
-	//}
-
 	if verbose {
 		fmt.Printf("*---[%v] Verbose true\n", option)
 	} else {
@@ -101,7 +95,8 @@ func Deploy(input []string, verbose bool) (result string) {
 	fmt.Printf("*---[%v] Start Clone BankDemo GitHub.com Repo\n", option)
 
 	var repo = "https://github.com/MicroFocus/BankDemo.git"
-	cmd = exec.Command("git", "clone", repo, "--progress", "--branch", "main")
+	//cmd = exec.Command("git", "clone", repo, "--progress", "--branch", "main")
+	cmd = exec.Command("git", "clone", repo, "--progress")
 	if verbose {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -129,9 +124,10 @@ func Deploy(input []string, verbose bool) (result string) {
 		}
 		go func() {
 			defer stdin.Close()
-			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '9023', '9023' | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
-			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '8001', '5001 | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
-			fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\options\\vsam.json -Raw) -replace '\"is64bit\": false,','\"is64bit\": true,' | Set-Content -Path BankDemo\\scripts\\options\\vsam.json")
+			// Change json payload settings
+			//fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '9023', '9023' | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
+			//fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\config\\ports.json -Raw) -replace '8001', '5001 | Set-Content -Path BankDemo\\scripts\\config\\ports.json")
+			//fmt.Fprintln(stdin, "(Get-Content -path BankDemo\\scripts\\options\\vsam.json -Raw) -replace '\"is64bit\": false,','\"is64bit\": true,' | Set-Content -Path BankDemo\\scripts\\options\\vsam.json")
 		}()
 		out, err := cmd.CombinedOutput()
 		if err != nil {
@@ -143,11 +139,9 @@ func Deploy(input []string, verbose bool) (result string) {
 		fmt.Printf("*---[%v] Fix Github typos in Linux not yet implemented\n", option)
 	}
 
-	//Run python MF_Provision_Region.py vsam
-
 	fmt.Printf("*---[%v] Starting Deploy\n", option)
 	syscall.Chdir("BankDemo\\scripts\\")
-	//option := input[0]
+
 	cmd = exec.Command("python", "MF_Provision_Region.py", option)
 	syscall.Chdir("BankDemo\\scripts\\")
 	if verbose {
